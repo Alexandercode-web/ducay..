@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Geometric Flower</title>
+    <style>
+        body {
+            background: linear-gradient(to bottom, black, blue);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            height: 100vh;
+            overflow: hidden;
+        }
+        svg {
+            width: 400px;
+            height: 400px;
+        }
+        h1 {
+            color: pink;
+            font-size: 2em;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            position: absolute;
+            top: 20px;
+            animation: fadeBlink 1s infinite alternate;
+        }
+        @keyframes fadeBlink {
+            0% { opacity: 0.2; }
+            100% { opacity: 1; }
+        }
+        @keyframes blinkFlower {
+            0% { opacity: 0.2; }
+            100% { opacity: 1; }
+        }
+        #flower {
+            animation: blinkFlower 1.5s infinite alternate;
+            transform-origin: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>HAPPY VALENTINE'S DAY MAHAL</h1>
+    <svg viewBox="-100 -100 200 200">
+        <defs>
+            <radialGradient id="gradient" cx="50%" cy="50%" r="50%">
+                <stop offset="0%" stop-color="white"/>
+                <stop offset="100%" stop-color="red"/>
+            </radialGradient>
+        </defs>
+        <g id="flower"></g>
+        <line id="stem" x1="0" y1="0" x2="0" y2="80" stroke="green" stroke-width="5" />
+        <circle cx="0" cy="0" r="5" fill="yellow" />
+    </svg>
+    <script>
+        const flower = document.getElementById("flower");
+        const petals = 12;
+        const radius = 50;
+        
+        for (let i = 0; i < petals; i++) {
+            let angle = (i * (360 / petals)) * (Math.PI / 180);
+            let x = Math.cos(angle) * radius;
+            let y = Math.sin(angle) * radius;
+            
+            let petal = document.createElementNS("http://www.w3.org/2000/svg", "ellipse");
+            petal.setAttribute("cx", x);
+            petal.setAttribute("cy", y);
+            petal.setAttribute("rx", 30);
+            petal.setAttribute("ry", 15);
+            petal.setAttribute("fill", "url(#gradient)");
+            petal.setAttribute("transform", `rotate(${i * (360 / petals)} ${x} ${y})`);
+            
+            flower.appendChild(petal);
+        }
+    </script>
+</body>
+</html>
